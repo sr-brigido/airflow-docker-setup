@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "airflow-docker-setup"
+version = "2.5"
+description = "Apache Airflow em docker utilizando docker proxy"
+authors = ["Gabriel Brigido <gabrielbrigido1@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[[tool.poetry.source]]
+name = "pypi-public"
+url = "https://pypi.org/simple/"
+
+[tool.poetry.dependencies]
+python = "3.12.*"
+taskipy = "^1.12.2"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.5.0"
+commitizen = "^3.13.0"
+apache-airflow = "^2.9.0"
+apache-airflow-providers-docker = "^3.11.0"
+apache-airflow-providers-apprise = "1.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+git-config = "pre-commit install && pre-commit install --hook-type commit-msg"
+pre-commit = "git add . && pre-commit run"
+commit = "git add . && cz commit"
+
+[tool.bandit]
+exclude_dirs = ["tests"]
